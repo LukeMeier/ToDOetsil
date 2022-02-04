@@ -1,1 +1,8 @@
-yuhu
+#anu {
+    display: flex;
+    justify-content: right;
+    text-align: right;
+    justify-items: right;
+    -ms-flex-item-align: right;
+    float: right;
+}

@@ -1,17 +1,19 @@
-var count = 0;
+const defaultHeaders = {"Content-Type": "application/json; charset=utf-8"}
+const baseUrl = "http://localhost:3000"
+
 
 function mehr() {
     const divi = document.createElement('div');
     const h2 = document.createElement('p');
-    const but = "<button onclick=delet(this)>delete</button>";
-    const butter = "<button onclick=edit(this)>edit</button>";
+    const but = "<button onclick=delet(this) class=del>delete</button>";
+    const butter = "<button onclick=edit(this) class=edit>edit</button>";
     const haxt =  document.getElementById("text").value;
     const text = document.createTextNode(haxt);
     const print = document.getElementById('screen');
-    divi.insertAdjacentHTML("beforeend", but);
-    divi.insertAdjacentHTML("beforeend", butter);
     h2.appendChild(text);
     divi.appendChild(h2);
+    divi.insertAdjacentHTML("beforeend", but);
+    divi.insertAdjacentHTML("beforeend", butter);
     print.appendChild(divi);
 }
 
@@ -28,13 +30,15 @@ function edit(element) {
     let child = parent.children;
     let chili = parent.getElementsByTagName('p')[0].innerHTML;
     console.log(chili);
-    let puting = "<input type=text placeholder=" + chili + ">";
-    let bubier = "<button onclick=save(this)>save</button>";
+    let puting = "<input type=text placeholder=" + chili + " class=input>";
+    let bubier = "<button onclick=save(this) class=save>save</button>";
+    let del = child[1];
     console.log(child[2]);
     child[2].remove();
-    child[1].remove();
-    parent.insertAdjacentHTML("beforeend", bubier);
+    child[0].remove();
     parent.insertAdjacentHTML("beforeend", puting);
+    parent.appendChild(del);
+    parent.insertAdjacentHTML("beforeend", bubier);
 }
 
 function save(element) {
@@ -42,17 +46,78 @@ function save(element) {
     console.log(papa)
     let child = papa.children;
     let ptag = document.createElement('p');
-    let bedit = "<button onclick=edit(this)>edit</button>";
-    let haxe = child[2].value;
+    let bedit = "<button onclick=edit(this) class=edit>edit</button>";
+    let haxe = child[0].value;
     console.log(haxe);
     let texto = document.createTextNode(haxe);
+    let del = child[1];
     child[2].remove();
     child[1].remove();
-    papa.insertAdjacentHTML("beforeend", bedit);
+    child[0].remove();
     ptag.appendChild(texto);
     papa.appendChild(ptag);
+    papa.appendChild(del);
+    papa.insertAdjacentHTML("beforeend", bedit);
+
+}
+/* 
+async function register() {
+    const email = document.getElementById("input-email")
+    const password = document.getElementById("input-password")
+	try {
+		const response = await fetch(`${baseUrl}/users`, {
+			method: "POST",
+			headers: defaultHeaders,
+			body: JSON.stringify({ email: email.value, password: password.value })
+		})
+		if (response.ok) {
+			console.log(await response.json())
+		} else {
+			throw new Error(await response.json())
+		}
+	} catch (error) {
+		console.error(error)
+	}
 }
 
+async function login() {
+    const email = document.getElementById("input-email")
+    const password = document.getElementById("input-password")
+    console.log(email.value)
+    console.log(password.value);
+	try {
+		const response = await fetch(`${baseUrl}/login`, {
+			method: "POST",
+			headers: defaultHeaders,
+			body: JSON.stringify({ email: email.value, password: password.value })
+		})
+		if (response.ok) {
+			setUser(await response.json())
+		} else {
+			throw new Error(await response.json())
+		}
+	}
+	catch (error) {
+		console.error(error)
+	}
+}
+function setUser(auth) {
+    console.log(auth);
+    currentUser = auth.user
+    currentUser.token = auth.accessToken;
+    console.log(currentUser);
+      // sessionStorage.setItem('currentUser', user ? JSON.stringify(currentUser) : null);
+    if (currentUser) {
+        document.body.classList.add('is-authenticated')
+        document.body.classList.remove('is-unauthenticated')
+        welcomeElement.innerText = `Hallo ${currentUser.email}`
+    } else {
+        document.body.classList.remove('is-authenticated')
+        document.body.classList.add('is-unauthenticated')
+        welcomeElement.innerText = ""
+    }
+}
+*/
 function anmelden() {
     let Mail = "<input type=text placeholder=EMAIL id=mail>";
     let psw = "<input type=password placeholder=Passwort id=psw>";
@@ -77,8 +142,6 @@ function melden() {
     let texti = document.createTextNode(mill);
     let falsch = document.createElement('p');
     falsch.setAttribute("id", "falsch");
-    let faltsch = document.getElementById('falsch');
-    let falschi = document.createTextNode("falsch");
     if (pass == "akku" && mill == "zigel@zigel.zig") {
         Mail.remove();
         psw.remove();
@@ -86,10 +149,8 @@ function melden() {
         screeno.insertAdjacentHTML("beforeend", loguhrt);
         pnam.appendChild(texti);
         screeno.appendChild(pnam);
-        faltsch.remove();
     } else {
-        falsch.appendChild(falschi);
-        screeno.appendChild(falsch);
+        alert("Falsch");
     }
 }
 

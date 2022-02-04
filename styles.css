@@ -1,8 +1,40 @@
-#anu {
+#Menu{
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ text-align: center;
+ margin: 10px;
+}
+#screen {
     display: flex;
-    justify-content: right;
-    text-align: right;
-    justify-items: right;
-    -ms-flex-item-align: right;
-    float: right;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+#screen div {
+    display: flex;
+    justify-content: center;
+    margin: 10px ;
+}
+
+.del{
+    height: 30px;
+    margin: 10px;
+}
+.edit {
+    height: 30px;
+    margin: 10px;
+}
+.save {
+    height: 30px;
+    margin: 10px;
+}
+
+p{
+    margin: 10px;
+    margin-top: 15px;
+}
+.input {
+    height: 30px;
+    margin: 10px;
 }
